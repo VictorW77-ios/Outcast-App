@@ -1,0 +1,8 @@
+class PostsController < ApplicationController
+    
+
+
+
+
+
+end 
