@@ -11,6 +11,7 @@ gem 'shotgun'
 gem 'pry'
 gem 'bcrypt'
 gem 'tux'
+gem 'formtastic', '~> 3.0'
 
 group :test do
   gem 'rspec'
