@@ -1,4 +1,6 @@
-## the place where I'm going to mount my application controllers.
+## the place where I'm going to mount my other controller 'use'
+## in order to send PATCH and DELETE requests 
+'use Rack::MethodOverride'
 
 require './config/environment'
 
