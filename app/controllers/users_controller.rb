@@ -1,61 +1,61 @@
-class UserController < ApplicationController
+# class UserController < ApplicationController
     
-    get '/signup' do 
-        if Helpers.is_logged_in?(session)
-            redirect to '/posts'
-        end 
-        erb :'users/create_user'
-    end
+#     get '/signup' do 
+#         if Helpers.is_logged_in?(session)
+#             redirect to '/posts'
+#         end 
+#         erb :'users/create_user'
+#     end
 
-    post '/signup' do
-        if !(params.has_value?(""))
-            user = User.create(params)
-            session["user_id"] = user.id 
-            redirect to '/posts'
-        else 
-            redirect to '/signup'
-        end 
+#     post '/signup' do
+#         if !(params.has_value?(""))
+#             user = User.create(params)
+#             session["user_id"] = user.id 
+#             redirect to '/posts'
+#         else 
+#             redirect to '/signup'
+#         end 
 
-    end 
+#     end 
 
-    get '/login' do
-        if Helpers.is_logged_in?(session)
-            redirect to '/posts'
-        end 
+#     get '/login' do
+#         if Helpers.is_logged_in?(session)
+#             redirect to '/posts'
+#         end 
 
-        erb :'users/login'
-    end 
+#         erb :'users/login'
+#     end 
 
-    post '/login' do
-    user = User.find_by(:username => params[:username])
-        if user && user.authenticate(params[:password])
-            session["user_id"] = user.id
-            redirect to "/posts"
-        else 
-            redirect to "/login"
-        end
+#     post '/login' do
+#     user = User.find_by(:username => params[:username])
+#         if user && user.authenticate(params[:password])
+#             session["user_id"] = user.id
+#             redirect to "/posts"
+#         else 
+#             redirect to "/login"
+#         end
 
-    end 
+#     end 
 
-    get '/users/:slug' do
-        @user = User.find_by_slug(params[:slug])
-        if !@user.nil? 
-            erb :'/user/user_posts'
-        else 
-            redirect to '/login'
-        end 
-    end 
+#     get '/users/:slug' do
+#         @user = User.find_by_slug(params[:slug])
+#         if !@user.nil? 
+#             erb :'/user/user_posts'
+#         else 
+#             redirect to '/login'
+#         end 
+#     end 
 
-    get '/logout' do
-        if Helpers.is_logged_in(session)
-            session.clear
-        else 
-            redirect to '/' 
-        end
+#     get '/logout' do
+#         if Helpers.is_logged_in(session)
+#             session.clear
+#         else 
+#             redirect to '/' 
+#         end
         
-        redirect to '/login'
+#         redirect to '/login'
 
-    end 
+#     end 
 
 
-end 
+# end 
