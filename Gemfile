@@ -12,6 +12,7 @@ gem 'pry'
 gem 'bcrypt'
 gem 'tux'
 gem 'formtastic', '~> 3.0'
+gem 'flash', '~> 0.1.0'
 
 group :test do
   gem 'rspec'
