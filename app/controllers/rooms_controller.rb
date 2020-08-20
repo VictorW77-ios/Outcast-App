@@ -4,7 +4,7 @@ class RoomsController < ApplicationController
     get '/rooms' do 
         if logged_in?
             @rooms = current_user.rooms.all
-            erb : 'rooms/rooms'
+            # erb : 'rooms/rooms'
         else 
             not_logged_in_redirect
         end

@@ -10,11 +10,11 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    if !logged_in?
-      erb :index, :layout => : 'not_logged_in_layout'
-    else 
-      landing_page_redirect
-    end
+    # if !logged_in?
+    #   # erb :index, :layout => : 'not_logged_in_layout'
+    # else 
+    #   landing_page_redirect
+    # end
   end
 
   helpers do 
