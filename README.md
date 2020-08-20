@@ -9,12 +9,15 @@ To use Outcast:
 - fork and clone this repository
 
 And then execute: 
+
 `$ bundle install`
 
 Then:
+
 `$ rake db:migrate`
 
 And finally:
+
 `$ shotgun` 
 
 ## Contributing
