@@ -5,7 +5,7 @@ class PostsController < ApplicationController
 
     # READING : model gets all posts from db
     get '/posts' do
-        @posts = Post.all 
+        @posts = Post.all.order(created_at: :desc)
         erb :'posts/index'
     end 
 
