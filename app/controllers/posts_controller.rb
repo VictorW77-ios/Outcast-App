@@ -1,82 +1,78 @@
 class PostsController < ApplicationController
 
+    # implements C.R.U.D by: 
+
+
+    # READING : model gets all posts from db
     get '/posts' do
-        if Helpers.is_logged_in?(session)
-            @posts = post.all 
-            erb :'/posts/posts'
-        else 
-            redirect to '/users/login'
-        end
+        @posts = Post.all 
+        erb :'/posts/index'
     end 
 
+    # CREATING : allows user to make a new post
     get '/posts/new' do
-        user = Helpers.current_user(session)
-        if user.nil?
-            redirect to '/login'
+        if logged_in?
+            erb :'posts/new'
         else 
-            erb :'posts/create_post'
+            # error message
+            redirect '/'
         end 
     end 
 
     post '/posts' do
-        user = Helpers.current_user(session)
-        if user.nil?
-            redirect to '/login'
-        elsif params[:post][:content].empty?
-            redirect to '/posts/new'
-        else
-            user.posts.build({content: params[:post][:conent]})
-            user.save
-        end 
-        redirect to '/posts'
-    end 
-
-    get '/posts/:id' do
-        redirect to '/login' unless Helpers.is_logged_in?(session)
-
-        @post = post.find(params[:id])
+        post = Post.new(title: params[:title], image_url: params[:image_url], description: params[:description], user_id: current_user.id)
         
-        erb :'/posts/show_post'
+        if post.save # varifies is input is legit, .save triggers validation
+            #need success message 
+            redirect "/posts/#{post.id}"
+        else 
+            # need error message
+            redirect "/posts/new"
+        end 
     end 
 
-    get '/posts/:id/edit' do
-        redirect to '/login' unless Helpers.is_logged_in?(session)
+    # route for individual post
+    get '/posts/:id' do
+        @post = Post.find(params[:id])
+        
+        erb :'/posts/show'
+    end 
 
+
+    # UPDATING : user can edit their post but no one else's
+    get '/posts/:id/edit' do
         @post = post.find(params[:id])
-        if @post.user == Helpers.current_user(session)
-            erb :'/posts/edit_post'
+
+        if authorized_to_edit?(@post)
+            erb :'/posts/edit'
         else 
-            redirect to '/login'
+            # insert error message!!
+            redirect to '/posts'
         end 
     end 
 
     patch '/posts/id' do
-        @post = post.find(params[:id])
-        
-        if params[:post][:content].empty?
-            redirect to "/posts/#{@post.id}/edit"
-        end 
-        @post.update(params[:post])
-        @post.save 
+        @post = Post.find(params[:id])
 
-        redirect to "posts/#{@post.id}"
+        @post.update(title: params[:title], iamge_url: params[:image_url], description: params[:description])
+
+        redirect to "/posts/#{@post.id}"
     end 
 
-    delete '/posts/:id/delete' do
-        if Helpers.is_logged_in?(session)
-            @post = post.find(params[:id])
-            if @post.user == Helpers.current_user(session)
-                @post = post/find_by_id(params[:id])
-                @post.delete 
-                redirect to '/posts'
-            else 
-                redirect to '/posts'
-            end
-        else 
-            redirect to '/login'
-        end
+    # delete '/posts/:id/delete' do
+    #     @post = Post.find(params[:id])
+    #     @post.user =
+    #             @post = post/find_by_id(params[:id])
+    #             @post.delete 
+    #             redirect to '/posts'
+    #         else 
+    #             redirect to '/posts'
+    #         end
+    #     else 
+    #         redirect to '/login'
+    #     end
         
-    end 
+    # end 
 
 
 
