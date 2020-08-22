@@ -6,14 +6,14 @@ class ApplicationController < Sinatra::Base
     set :public_folder, 'public'
     set :views, 'app/views' 
     enable :sessions
-    set :session_secret, 'password_security'
+    set :session_secret, 'unknown_session'
   end
 
   get "/" do
     if logged_in?
-        redirect "users/#{current_user.id}"
+      redirect "/users/#{current_user.id}"
     else
-        erb :layout
+      erb :welcome
     end
   end 
 
@@ -23,15 +23,15 @@ class ApplicationController < Sinatra::Base
   helpers do 
 
     def logged_in?
-        !!current_user
+      !!current_user
     end 
 
     def current_user 
-        User.find_by(id: session[:user_id])
+      User.find_by(id: session[:user_id])
     end 
 
     def edit_authorization?(post)
-        post.user == current_user
+      post.user == current_user
     end 
 
   end   
