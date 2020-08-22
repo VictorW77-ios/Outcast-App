@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-    # render a login form
+    # gives me (renders) a login form
     get "/login" do
         erb :'users/login'
     end
@@ -9,14 +9,27 @@ class UsersController < ApplicationController
     post "/login" do
         user = User.find_by(email: params[:email])
         if user && user.authenticate(params[:password])
-            session["user_id"] = user.id
-            redirect to "/posts"
+            binding.pry
+            session[:user_id] = user.id
+            redirect to "/users/#{user.id}"
         else 
             # show an error message
             redirect '/login'
         end
 
     end 
+
+    # show route
+    get "/users/:id" do 
+        @user = User.find_by(id: params[:id])
+        erb :'users/show'
+    end 
+
+    get '/signup' do 
+        erb :'/users/signup'
+    end 
+
+    
 
 
 end
