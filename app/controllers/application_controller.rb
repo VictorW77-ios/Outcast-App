@@ -7,6 +7,8 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views' 
     enable :sessions
     set :session_secret, 'unknown_session'
+
+    register Sinatra::Flash
   end
 
   get "/" do
@@ -30,7 +32,7 @@ class ApplicationController < Sinatra::Base
       User.find_by(id: session[:user_id])
     end 
 
-    def edit_authorization?(post)
+    def authorized_to_edit?(post)
       post.user == current_user
     end 
 
