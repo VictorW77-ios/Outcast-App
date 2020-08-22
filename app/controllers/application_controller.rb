@@ -19,6 +19,11 @@ class ApplicationController < Sinatra::Base
     end
   end 
 
+  not_found do 
+    status 404 
+    erb :failure
+  end 
+
 
 
   
