@@ -1,16 +1,21 @@
-<% if Helpers.is_logged_in?(session) %>
-<%= @error %>
+<html>
+
   <form action='/posts' method="post">
-    Content:
-    <input type="text" name="content"><br>
-    'Lets Hear What You Have To Say:'
+    
+    <label for="title">Title: </label>
+    <input type="text" name="title" id="title" value=""><br>
+
+    <label for="description">What do you want to talk about?: </label>
+    <input type="text" name="description" id="description" value=""><br>
+
+    <label for="password">Picture: </label>
+    <input type="text" name="image_url" value=""><br>
+   
+    
 
     <input type="submit" name="submit" id="submit">
 
-    <input type="submit" name="submit">
-
   </form>
+  
 
-  <% else %>
-      <h1> Oop! You Have To Be Logged In To Make A Post </h1>
-  <% end %>
+</html>
