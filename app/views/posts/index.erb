@@ -1,0 +1,11 @@
+<h1>Discussion Feed</h1>
+<% @posts.each do |post| %> 
+    <h3><a href="/posts/<%= post.id %>"><%= post.title %></a><h3>
+    <img src="<%= post.image_url %>" alt="<%= post.title %>" height="250" width="250">
+<br><br>
+
+    <p><%= post.description %></p>
+    <strong>Posted on: <%= post.created_at %></strong>
+    <p>By: <%= post.user.name %></p>
+
+<% end %>
