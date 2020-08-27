@@ -17,7 +17,7 @@ class UsersController < ApplicationController
             redirect to "/users/#{@user.id}"
         else 
             flash[:error] = "Unrecognized email/password."
-            redirect '/login'
+            redirect_if_not_logged_in
         end
 
     end 
@@ -25,6 +25,7 @@ class UsersController < ApplicationController
 
     # the user's show route
     get "/users/:id" do 
+        # binding.pry
         @user = User.find_by(id: params[:id])
         erb :'/users/show'
     end 

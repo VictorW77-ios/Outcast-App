@@ -15,7 +15,7 @@ class PostsController < ApplicationController
             erb :'/posts/new'
         else 
             flash[:error] = "Log in to post!"
-            redirect "/"
+            redirect_if_not_logged_in
         end 
     end 
 
